@@ -1,26 +1,28 @@
-import css from './Filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSeacrhQuery } from 'store/filter/selectors';
-import { findContact } from 'store/filter/slice';
+import style from './Filter.module.css';
+import { setFilter } from '../../redux/filterSlice';
+import { selectFilter } from '../../redux/selectors';
 
-export const Filter = () => {
+const Filter = () => {
   const dispatch = useDispatch();
-  const { searchQuery } = useSelector(getSeacrhQuery);
+  const filter = useSelector(selectFilter);
 
-  const handleFilterChange = e => {
-    dispatch(findContact(e.target.value));
+  const hangleChangeFilter = value => {
+    dispatch(setFilter(value));
   };
+
   return (
-    <>
-      <div className={css.searchField}>
-        <label htmlFor="filter">Find contacts by name</label>
-        <input
-          name="filter"
-          value={searchQuery}
-          onChange={handleFilterChange}
-          className={css.filterInput}
-        />
-      </div>
-    </>
+    <label className={style.filterLabel}>
+      Find contacts by name <br />
+      <input
+        type="text"
+        value={filter}
+        onChange={e => {
+          hangleChangeFilter(e.currentTarget.value);
+        }}
+      />
+    </label>
   );
 };
+
+export default Filter;
