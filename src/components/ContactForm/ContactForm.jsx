@@ -21,7 +21,7 @@ const ContactFrom = () => {
       return;
     }
 
-    dispatch(addContact({ name, number }));
+    dispatch(addContact({ name, phone: number }));
     setName('');
     setNumber('');
   };
